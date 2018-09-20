@@ -511,9 +511,9 @@ if ($report_mem_util || $report_mem_used || $report_mem_avail || $report_swap_ut
   my $mem_free = $meminfo{'MemFree'} * KILO;
   my $mem_cached = $meminfo{'Cached'} * KILO;
   my $mem_buffers = $meminfo{'Buffers'} * KILO;
-  my $mem_avail = $mem_free;
-  if (!defined($mem_used_incl_cache_buff)) {
-     $mem_avail += $mem_cached + $mem_buffers;
+  my $mem_avail = $meminfo{'MemAvailable'} * KILO;
+  if (defined($mem_used_incl_cache_buff)) {
+     $mem_avail -= $mem_cached + $mem_buffers;
   }
   my $mem_used = $mem_total - $mem_avail;
   my $swap_total = $meminfo{'SwapTotal'} * KILO;
